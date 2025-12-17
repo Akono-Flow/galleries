@@ -2,7 +2,7 @@
 // Admin Panel Configuration
 // ===========================
 
-const ADMIN_PASSWORD = "your-secure-password-here"; // CHANGE THIS!
+const ADMIN_PASSWORD = "Kmn89@me"; // CHANGE THIS!
 const STORAGE_KEY = "galleryApps";
 const AUTH_KEY = "galleryAuth";
 
