@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Admin Panel</title>
+  <link rel="stylesheet" href="assets/admin-style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-container">
+    <div class="login-box">
+      <div class="login-icon">
+        <i data-lucide="lock"></i>
+      </div>
+      <h1>Gallery Admin Panel</h1>
+      <p>Enter password to access</p>
+      <form id="login-form">
+        <input 
+          type="password" 
+          id="password-input" 
+          placeholder="Password" 
+          required
+          autocomplete="current-password"
+        >
+        <button type="submit">Login</button>
+      </form>
+      <div id="login-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <!-- Main Admin Interface -->
+  <div id="admin-interface" class="admin-container" style="display: none;">
+    
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="header-content">
+        <h1>📚 Gallery Management System</h1>
+        <div class="header-actions">
+          <button id="export-btn" class="header-btn">
+            <i data-lucide="download"></i> Export Config
+          </button>
+          <button id="import-btn" class="header-btn">
+            <i data-lucide="upload"></i> Import Config
+          </button>
+          <input type="file" id="import-file" accept=".json" style="display: none;">
+          <button id="logout-btn" class="header-btn logout">
+            <i data-lucide="log-out"></i> Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Gallery Tabs -->
+    <div class="tabs-container">
+      <div class="tabs" id="gallery-tabs">
+        <!-- Tabs will be inserted here dynamically -->
+      </div>
+      <button id="add-gallery-btn" class="add-gallery-btn" title="Add New Gallery">
+        <i data-lucide="plus"></i>
+      </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Add App Form -->
+      <div class="add-app-section">
+        <button id="toggle-add-form" class="add-app-btn">
+          <i data-lucide="plus-circle"></i> Add New App
+        </button>
+        
+        <div id="add-app-form" class="app-form" style="display: none;">
+          <h3>Add New App</h3>
+          <form id="new-app-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="app-title">Title *</label>
+                <input type="text" id="app-title" required placeholder="e.g., Periodic Table">
+              </div>
+              <div class="form-group">
+                <label for="app-url">URL *</label>
+                <input type="url" id="app-url" required placeholder="https://example.com/app">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="app-description">Description *</label>
+              <textarea id="app-description" required placeholder="Brief description of the app" rows="2"></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="app-icon">Icon Name *</label>
+                <input type="text" id="app-icon" required placeholder="e.g., flask-round, atom, dna">
+                <small><a href="https://lucide.dev/icons/" target="_blank">Browse Lucide Icons</a></small>
+              </div>
+              <div class="form-group">
+                <label for="app-color">Color *</label>
+                <div class="color-input-group">
+                  <input type="color" id="app-color" value="#0061ff">
+                  <input type="text" id="app-color-text" value="#0061ff" pattern="^#[0-9A-Fa-f]{6}$">
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">
+                <i data-lucide="check"></i> Add App
+              </button>
+              <button type="button" id="cancel-add-form" class="btn-secondary">
+                <i data-lucide="x"></i> Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Apps Grid -->
+      <div id="apps-grid" class="apps-grid">
+        <!-- App cards will be inserted here -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <i data-lucide="inbox"></i>
+        <h3>No Apps Yet</h3>
+        <p>Click "Add New App" to get started</p>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Edit App Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit App</h3>
+        <button class="modal-close" id="close-edit-modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="edit-app-form">
+        <input type="hidden" id="edit-app-id">
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-app-title">Title *</label>
+            <input type="text" id="edit-app-title" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-app-url">URL *</label>
+            <input type="url" id="edit-app-url" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-app-description">Description *</label>
+          <textarea id="edit-app-description" required rows="2"></textarea>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-app-icon">Icon Name *</label>
+            <input type="text" id="edit-app-icon" required>
+            <small><a href="https://lucide.dev/icons/" target="_blank">Browse Icons</a></small>
+          </div>
+          <div class="form-group">
+            <label for="edit-app-color">Color *</label>
+            <div class="color-input-group">
+              <input type="color" id="edit-app-color">
+              <input type="text" id="edit-app-color-text" pattern="^#[0-9A-Fa-f]{6}$">
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            <i data-lucide="save"></i> Save Changes
+          </button>
+          <button type="button" id="cancel-edit-modal" class="btn-secondary">
+            <i data-lucide="x"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/admin-script.js"></script>
+</body>
+</html>
