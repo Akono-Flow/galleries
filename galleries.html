@@ -319,11 +319,14 @@
       }
     };
     
-    // Map gallery IDs to their URL paths
+    // Map gallery IDs to their URL paths (for custom short URLs)
+    // If a gallery isn't listed here, it will use: g/{gallery-id}.html
     const galleryPaths = {
       games: "g/gm.html",
       chemistry: "g/ch.html",
       quiz: "g/qz.html"
+      // Add custom paths here if needed, e.g.:
+      // physics: "g/phys.html"
     };
     
     function loadGalleries() {
@@ -395,6 +398,7 @@
     
     function createGalleryCard(id, name, description, icon, color, appCount) {
       const card = document.createElement("a");
+      // Use custom path if defined, otherwise auto-generate: g/{id}.html
       card.href = galleryPaths[id] || `g/${id}.html`;
       card.className = "gallery-card";
       card.style.setProperty("--gallery-color", color);
