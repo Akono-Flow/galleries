@@ -613,15 +613,41 @@ body {
 }
 
 .app-url {
-  color: #667eea;
+  color: #718096;
   font-size: 0.8125rem;
   word-break: break-all;
   display: block;
-  text-decoration: none;
+  margin-bottom: 0.75rem;
 }
 
-.app-url:hover {
-  text-decoration: underline;
+.app-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.app-launch-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.app-launch-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Empty State */
