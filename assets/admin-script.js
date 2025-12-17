@@ -2,7 +2,7 @@
 // Admin Panel Configuration
 // ===========================
 
-const ADMIN_PASSWORD = "Kmn89@me"; // CHANGE THIS!
+const ADMIN_PASSWORD = "your-secure-password-here"; // CHANGE THIS!
 const STORAGE_KEY = "galleryApps";
 const AUTH_KEY = "galleryAuth";
 
@@ -280,7 +280,11 @@ function createAppCard(app, index) {
     
     <h3>${app.title}</h3>
     <p>${app.description}</p>
-    <a href="${app.url}" target="_blank" class="app-url">${app.url}</a>
+    <div class="app-url">${app.url}</div>
+    <a href="${app.url}" target="_blank" class="app-launch-btn">
+      <i data-lucide="external-link"></i>
+      <span>Launch App</span>
+    </a>
   `;
   
   // Toggle handler
