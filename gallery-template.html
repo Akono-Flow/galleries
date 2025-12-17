@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educational Apps Gallery</title>
+    <meta
+      name="description"
+      content="Interactive educational applications and learning tools"
+    />
+    <link rel="stylesheet" href="../assets/gallery-style.css" />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <header>
+      <h1 id="gallery-header">📚 Educational Apps</h1>
+      <p id="gallery-description">Interactive learning applications</p>
+    </header>
+
+    <main>
+      <div id="gallery"></div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Educational Apps Gallery | M. Cole</p>
+    </footer>
+
+    <!-- IMPORTANT: Set the gallery ID below to match your gallery ID from admin panel -->
+    <script>
+      // CHANGE THIS to match your gallery ID (lowercase, use hyphens for spaces)
+      // Examples: "games", "chemistry", "quiz", "physics", "math", "biology"
+      const GALLERY_ID = "physics";
+
+      // Optional: Customize header (will use gallery name from data if not set)
+      const CUSTOM_HEADER = ""; // Leave empty to auto-populate
+      const CUSTOM_DESCRIPTION = ""; // Leave empty to auto-populate
+
+      // Auto-populate header from gallery data if not customized
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!CUSTOM_HEADER || !CUSTOM_DESCRIPTION) {
+          try {
+            const stored = localStorage.getItem("galleryApps");
+            if (stored) {
+              const galleries = JSON.parse(stored);
+              if (galleries[GALLERY_ID]) {
+                const header = document.getElementById("gallery-header");
+                const description = document.getElementById(
+                  "gallery-description"
+                );
+
+                if (!CUSTOM_HEADER && header) {
+                  header.textContent =
+                    galleries[GALLERY_ID].name || "Educational Apps";
+                }
+
+                if (!CUSTOM_DESCRIPTION && description) {
+                  // Generic description based on gallery name
+                  description.textContent = `Explore ${galleries[
+                    GALLERY_ID
+                  ].name.toLowerCase()} applications and learning tools`;
+                }
+              }
+            }
+          } catch (e) {
+            console.error("Error loading gallery info:", e);
+          }
+        }
+
+        if (CUSTOM_HEADER) {
+          document.getElementById("gallery-header").textContent = CUSTOM_HEADER;
+        }
+
+        if (CUSTOM_DESCRIPTION) {
+          document.getElementById("gallery-description").textContent =
+            CUSTOM_DESCRIPTION;
+        }
+      });
+    </script>
+    <script src="../assets/gallery-script.js"></script>
+  </body>
+</html>
